@@ -1,4 +1,4 @@
-package WarmUpChallenges;
+package Sorting;
 
 import java.util.Scanner;
 
@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class BubbleSort {
 
     // Complete the countSwaps function below.
-    static void countSwaps(int[] a) {
+    private static void countSwaps(int[] a) {
         int count = 0;
         int lastSorted = a.length - 1;
         while (lastSorted >= 0) {

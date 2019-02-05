@@ -1,4 +1,4 @@
-package WarmUpChallenges;
+package Sorting;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class MarkAndToys {
 
     // Complete the maximumToys function below.
-    static int maximumToys(int[] prices, int k) {
+    private static int maximumToys(int[] prices, int k) {
         int count = 0;
         int startIndex = 0;
         while (k >= 0) {
