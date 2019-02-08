@@ -1,8 +1,7 @@
 package Sorting;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -12,21 +11,27 @@ public class FraudulentActivityNotifications {
 
     // Complete the activityNotifications function below.
     static int activityNotifications(int[] expenditure, int d) {
-        for (int i = d; i < expenditure.length; i++) {
+        int count = 0;
+        int i = 0;
+        while (i < expenditure.length - d) {
             int[] trailing = new int[d];
-            for (int j = d, k = 0; j > 0 && k < d; j--, k++) {
-                trailing[k] = expenditure[i - j];
+            int j = 0;
+            while (j < d) {
+                trailing[j] = expenditure[i + j];
+                j++;
             }
-            int median = 0;
-            if (d % 2 == 0) {
-                median = (trailing[d/2] + trailing[d/2 + 1])/2;
-            } else {
-                median = trailing[d/2];
+            Arrays.sort(trailing);
+
+            int median = trailing[d / 2];
+            if (expenditure[i + d] >= median * 2) {
+                count++;
             }
-            System.out.println(median);
+            i++;
         }
-        return -1;
+        return count;
     }
+
+
 
     private static final Scanner scanner = new Scanner(System.in);
 
@@ -57,8 +62,54 @@ public class FraudulentActivityNotifications {
 //        bufferedWriter.close();
 //
 //        scanner.close();
-        int[] expenditure = {10, 20, 30, 40, 50};
+//        int[] expenditure = {2, 3, 4, 2, 3, 6, 8, 4, 5};
+        int[] expenditure = {30, 90, 20, 30, 40};
+        printArr(expenditure);
 
-        System.out.println(activityNotifications(expenditure, 3));
+
+//        System.out.println(activityNotifications(expenditure, 5));
+    }
+
+    static void printArr(int[] arr) {
+        for (int n: arr) {
+            System.out.print("[" + n + "]");
+        }
+        System.out.println();
+    }
+
+//    static void mSort(int[] arr, int left, int right) {
+//        if (left >= right) {
+//            return;
+//        }
+//        int index = p(arr, left, right);
+//        mSort(arr, left, index - 1);
+//        mSort(arr, index, right);
+//
+//    }
+//
+//    private static int p(int[] arr, int left, int right) {
+//        printArr(arr);
+//        System.out.println(String.format("L: %d [%d], R: %d [%d]", left, arr[left], right, arr[right]));
+//        int pivot = arr[right];
+//        while (left < right) {
+//            while (arr[left] < pivot) {
+//                left++;
+//            }
+//            while (arr[right] > pivot) {
+//                right--;
+//            }
+//            if (left < right) {
+//                swap(arr, left, right);
+//                left++;
+//                right--;
+//            }
+//        }
+//        return left;
+//    }
+//
+    private static void swap(int[] arr, int left, int right) {
+        int temp = arr[left];
+        arr[left] = arr[right];
+        arr[right] = temp;
     }
 }
