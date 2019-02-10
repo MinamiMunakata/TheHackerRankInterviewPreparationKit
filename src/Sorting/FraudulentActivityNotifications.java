@@ -1,7 +1,8 @@
 package Sorting;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Calendar;
 import java.util.Scanner;
 
 /**
@@ -30,9 +31,9 @@ public class FraudulentActivityNotifications {
 //        return count;
 //    }
 
-    static int activityNotifications(int[] expenditure, int d) {
+    private static int activityNotifications(int[] expenditure, int d) {
         int notification = 0;
-        int[] pastDDays = getPastDDaysHistory(expenditure);
+        int[] pastDDays = getPastDDaysHistory(expenditure, d);
         // Start at 'd'th expenditure till the end.
         for (int i = d; i < expenditure.length; i++) {
             int currentAmount = expenditure[i];
@@ -49,10 +50,10 @@ public class FraudulentActivityNotifications {
         return notification;
     }
 
-    private static int[] getPastDDaysHistory(int[] expenditure) {
+    private static int[] getPastDDaysHistory(int[] expenditure, int d) {
         // Create expenditure history for past D days.
         int[] pastDDays = new int[MAX_EXPENDITURE + 1];
-        for (int i = 0; i < expenditure.length; i++) {
+        for (int i = 0; i < d; i++) {
             pastDDays[expenditure[i]] = pastDDays[expenditure[i]] + 1;
         }
         return pastDDays;
@@ -64,7 +65,7 @@ public class FraudulentActivityNotifications {
         double median = 0;
         int cursor = 0;
         int left = -1;
-        int right = -1;
+        int right;
         for (int amount = 0; amount <= MAX_EXPENDITURE; amount++) {
             cursor += pastDDays[amount];
             if (d % 2 == 0) {
@@ -88,8 +89,6 @@ public class FraudulentActivityNotifications {
                 }
             }
         }
-        printArr(pastDDays);
-        System.out.println("M: " + median);
         return median;
     }
 
@@ -97,8 +96,8 @@ public class FraudulentActivityNotifications {
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException {
-//        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
-//
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
         String[] nd = scanner.nextLine().split(" ");
 
         int n = Integer.parseInt(nd[0]);
@@ -108,8 +107,8 @@ public class FraudulentActivityNotifications {
         int[] expenditure = new int[n];
 
         String[] expenditureItems = scanner.nextLine().split(" ");
-//        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
-//
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
         for (int i = 0; i < n; i++) {
             int expenditureItem = Integer.parseInt(expenditureItems[i]);
             expenditure[i] = expenditureItem;
@@ -117,51 +116,12 @@ public class FraudulentActivityNotifications {
 
         int result = activityNotifications(expenditure, d);
 
-//        bufferedWriter.write(String.valueOf(result));
-//        bufferedWriter.newLine();
-//
-//        bufferedWriter.close();
+        bufferedWriter.write(String.valueOf(result));
+        bufferedWriter.newLine();
+
+        bufferedWriter.close();
 
         scanner.close();
-//        int[] expenditure = {2, 3, 4, 2, 3, 6, 8, 4, 5};
 
-        int[] testNum = new int[20000];
-        int i = 0;
-        while (i < testNum.length) {
-            for (int j = 0; j < MAX_EXPENDITURE && i < testNum.length; j++) {
-                testNum[i] = j;
-                i++;
-            }
-        }
-        Calendar start = Calendar.getInstance();
-//        int result = activityNotifications(testNum, 1000);
-//        int result = activityNotifications(testNum, 1000);
-//        int result = activityNotifications(expenditure, 5);
-        System.out.println(result);
-        Calendar end = Calendar.getInstance();
-        System.out.println((end.getTimeInMillis() - start.getTimeInMillis()) / 1000.00);
-    }
-
-    static void printArr(int[] arr) {
-        for (int n : arr) {
-            System.out.print("[" + n + "]");
-        }
-        System.out.println();
-    }
-
-    static void printTrailing(int[] arr, int indent) {
-        for (int i = 0; i < indent; i++) {
-            System.out.print("****");
-        }
-        for (int n : arr) {
-            System.out.print("[" + n + "]");
-        }
-        System.out.println();
-    }
-
-    private static void swap(int[] arr, int left, int right) {
-        int temp = arr[left];
-        arr[left] = arr[right];
-        arr[right] = temp;
     }
 }
