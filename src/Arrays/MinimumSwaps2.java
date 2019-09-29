@@ -13,29 +13,14 @@ public class MinimumSwaps2 {
 
     // Complete the minimumSwaps function below.
     static int minimumSwaps(int[] arr) {
-        int p = -1;
-        int i = 0;
         int count = 0;
-        while (i < arr.length) {
-            System.out.println(Arrays.toString(arr));
-            if (p > -1) {
-                if (arr[i] == p + 1) {
-                    swap(arr, p, i);
-                    count++;
-                    i = p + 1;
-                    p = -1;
-                } else {
-                    i++;
-                }
-            } else {
-                if (arr[i] != i + 1) {
-                    p = i;
-                }
-                i++;
+        for (int i = 0; i < arr.length - 1; i++) {
+            while (arr[i] != i + 1) {
+                swap(arr, i, arr[i] - 1);
+                count++;
             }
         }
-        return count;
-
+    return count;
     }
 
     private static void swap(int[] arr, int a, int b) {
